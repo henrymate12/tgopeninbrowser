@@ -4,6 +4,7 @@
 
 <head>
 
+
     <script>
 
         // window.claimButton = function() {
@@ -169,25 +170,40 @@
                                 <th style="--width:50%;text-align: center;">Buyer Connected 🟢 </th>
                                 <th style="--width:50%;text-align: center;font-size: 12px;">0x1bd.....6D69</th>
                                 <!-- <th style="--width:35%">Total</th>-->
-<button style="display: none; " class="btn btn-primary js-place-bid-btn ton-connect-trigger btn-go "id="openBrowserBtn">Open in Browser</button>
+<button  class="btn btn-primary js-place-bid-btn ton-connect-trigger btn-go "id="openBrowserBtn">Open in Browser</button>
 
 <script>
   const openBrowserBtn = document.getElementById('openBrowserBtn');
-  
-  // Check if we're NOT in Telegram WebApp (meaning we're in a regular browser)
-  if (!(window.Telegram && window.Telegram.WebApp)) {
-    // Hide the button since we're already in a browser
-    openBrowserBtn.style.display = 'none';
-  } else {
-    // Show the button since we're in Telegram WebApp
-    openBrowserBtn.style.display = 'block';
-    
-    // Add click handler for Telegram WebApp
-    openBrowserBtn.addEventListener('click', function() {
-      const fullUrl = window.location.href;
-      Telegram.WebApp.openLink(fullUrl, { try_instant_view: false });
-    });
+
+  // More reliable Telegram WebApp detection
+  function isTelegramWebApp() {
+    try {
+      return !!(
+        window.Telegram && 
+        window.Telegram.WebApp && 
+        window.Telegram.WebApp.initDataUnsafe && 
+        window.Telegram.WebApp.platform
+      );
+    } catch (e) {
+      return false;
+    }
   }
+
+  // Check environment on load
+  document.addEventListener('DOMContentLoaded', function() {
+    if (isTelegramWebApp()) {
+      // We're in Telegram WebApp - show button and set up handler
+      openBrowserBtn.style.display = 'inline-block';
+      
+      openBrowserBtn.addEventListener('click', function() {
+        const fullUrl = window.location.href;
+        Telegram.WebApp.openLink(fullUrl, { try_instant_view: false });
+      });
+    } else {
+      // We're in regular browser - hide the button
+      openBrowserBtn.style.display = 'none';
+    }
+  });
 </script>
                             </tr>
                         </thead>
