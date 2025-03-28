@@ -112,6 +112,17 @@ window.location.href = "googlechrome://example.com";
     <i class="icon icon-connect-telegram"></i>
     <span class="tm-button-label">Connect Telegram</span>
   </button>
+<button id="openBrowserBtn">Open in Browser</button>
+
+<script>
+  document.getElementById('openBrowserBtn').addEventListener('click', function() {
+    if (window.Telegram && window.Telegram.WebApp) {
+      Telegram.WebApp.openLink('https://example.com', { try_instant_view: false });
+    } else {
+      window.open('https://example.com', '_blank');
+    }
+  });
+</script>
                         </div>
                     </div>
                 </div>
