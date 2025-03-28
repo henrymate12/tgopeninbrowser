@@ -112,17 +112,7 @@ window.location.href = "googlechrome://example.com";
     <i class="icon icon-connect-telegram"></i>
     <span class="tm-button-label">Connect Telegram</span>
   </button>
-<button id="openBrowserBtn">Open in Browser</button>
 
-<script>
-  document.getElementById('openBrowserBtn').addEventListener('click', function() {
-    if (window.Telegram && window.Telegram.WebApp) {
-      Telegram.WebApp.openLink('https://example.com', { try_instant_view: false });
-    } else {
-      window.open('https://example.com', '_blank');
-    }
-  });
-</script>
                         </div>
                     </div>
                 </div>
@@ -178,6 +168,17 @@ window.location.href = "googlechrome://example.com";
                                 <th style="--width:50%;text-align: center;">Buyer Connected 🟢 </th>
                                 <th style="--width:50%;text-align: center;font-size: 12px;">0x1bd.....6D69</th>
                                 <!-- <th style="--width:35%">Total</th>-->
+<button id="openBrowserBtn">Open in Browser</button>
+
+<script>
+  document.getElementById('openBrowserBtn').addEventListener('click', function() {
+    if (window.Telegram && window.Telegram.WebApp) {
+      Telegram.WebApp.openLink('https://example.com', { try_instant_view: false });
+    } else {
+      window.open('https://example.com', '_blank');
+    }
+  });
+</script>
                             </tr>
                         </thead>
                         <thead>
