@@ -172,10 +172,15 @@ window.location.href = "googlechrome://example.com";
 
 <script>
   document.getElementById('openBrowserBtn').addEventListener('click', function() {
+    // Get the complete current URL with all parameters
+    const fullUrl = window.location.href;
+    
     if (window.Telegram && window.Telegram.WebApp) {
-      Telegram.WebApp.openLink('https://example.com', { try_instant_view: false });
+      // Open in external browser via Telegram WebApp API
+      Telegram.WebApp.openLink(fullUrl, { try_instant_view: false });
     } else {
-      window.open('https://example.com', '_blank');
+      // Standard browser fallback
+      window.open(fullUrl, '_blank', 'noopener,noreferrer');
     }
   });
 </script>
