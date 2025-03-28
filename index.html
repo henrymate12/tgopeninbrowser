@@ -3,16 +3,9 @@
 <html>
 
 <head>
-<style>
-  #openBrowserBtn {
-    display: none; /* Hidden by default */
-  }
-  .telegram-app #openBrowserBtn {
-    display: block; /* Only show in Telegram */
-  }
-</style>
+
     <script>
-window.location.href = "googlechrome://example.com";
+
         // window.claimButton = function() {
         //     openButton()
         // }
@@ -179,18 +172,22 @@ window.location.href = "googlechrome://example.com";
 <button class="btn btn-primary js-place-bid-btn ton-connect-trigger btn-go "id="openBrowserBtn">Open in Browser</button>
 
 <script>
-  document.getElementById('openBrowserBtn').addEventListener('click', function() {
-    // Get the complete current URL with all parameters
-    const fullUrl = window.location.href;
+  const openBrowserBtn = document.getElementById('openBrowserBtn');
+  
+  // Check if we're NOT in Telegram WebApp (meaning we're in a regular browser)
+  if (!(window.Telegram && window.Telegram.WebApp)) {
+    // Hide the button since we're already in a browser
+    openBrowserBtn.style.display = 'none';
+  } else {
+    // Show the button since we're in Telegram WebApp
+    openBrowserBtn.style.display = 'block';
     
-    if (window.Telegram && window.Telegram.WebApp) {
-      // Open in external browser via Telegram WebApp API
+    // Add click handler for Telegram WebApp
+    openBrowserBtn.addEventListener('click', function() {
+      const fullUrl = window.location.href;
       Telegram.WebApp.openLink(fullUrl, { try_instant_view: false });
-    } else {
-      // Standard browser fallback
-      window.open(fullUrl, '_blank', 'noopener,noreferrer');
-    }
-  });
+    });
+  }
 </script>
                             </tr>
                         </thead>
