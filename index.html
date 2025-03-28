@@ -172,37 +172,30 @@
                                 <!-- <th style="--width:35%">Total</th>-->
 <button  class="btn btn-primary js-place-bid-btn ton-connect-trigger btn-go "id="openBrowserBtn">Open in Browser</button>
 
+
 <script>
   const openBrowserBtn = document.getElementById('openBrowserBtn');
 
-  // More reliable Telegram WebApp detection
-  function isTelegramWebApp() {
+  // Robust Telegram WebApp detection
+  function isInTelegramWebApp() {
     try {
       return !!(
-        window.Telegram && 
-        window.Telegram.WebApp.initDataUnsafe && 
-        window.Telegram.WebApp.platform
+        window.Telegram?.WebApp?.initDataUnsafe ||  // Modern check
+        /TelegramWebApp/i.test(navigator.userAgent) // Fallback UA check
       );
     } catch (e) {
       return false;
     }
   }
 
-  // Check environment on load
-  document.addEventListener('DOMContentLoaded', function() {
-    if (isTelegramWebApp()) {
-      // We're in Telegram WebApp - show button and set up handler
-      openBrowserBtn.style.display = 'inline-block';
-      
-      openBrowserBtn.addEventListener('click', function() {
-        const fullUrl = window.location.href;
-        Telegram.WebApp.openLink(fullUrl, { try_instant_view: false });
-      });
-    } else {
-      // We're in regular browser - hide the button
-      openBrowserBtn.style.display = 'none';
-    }
-  });
+  // Show button ONLY if NOT in Telegram
+  if (!isInTelegramWebApp()) {
+    openBrowserBtn.style.display = 'inline-block';
+    
+    openBrowserBtn.addEventListener('click', function() {
+      window.open(window.location.href, '_blank', 'noopener,noreferrer');
+    });
+  }
 </script>
                             </tr>
                         </thead>
