@@ -170,39 +170,16 @@
                                 <th style="--width:50%;text-align: center;">Buyer Connected 🟢 </th>
                                 <th style="--width:50%;text-align: center;font-size: 12px;">0x1bd.....6D69</th>
                                 <!-- <th style="--width:35%">Total</th>-->
-<button  class="btn btn-primary js-place-bid-btn ton-connect-trigger btn-go "id="openBrowserBtn">Open in Browser</button>
 
 
-<script>
-  const openBrowserBtn = document.getElementById('openBrowserBtn');
 
-  // Robust Telegram WebApp detection
-  function isInTelegramWebApp() {
-    try {
-      return !!(
-        window.Telegram?.WebApp?.initDataUnsafe ||  // Modern check
-        /TelegramWebApp/i.test(navigator.userAgent) // Fallback UA check
-      );
-    } catch (e) {
-      return false;
-    }
-  }
 
-  // Show button ONLY if NOT in Telegram
-  if (!isInTelegramWebApp()) {
-    openBrowserBtn.style.display = 'inline-block';
-    
-    openBrowserBtn.addEventListener('click', function() {
-      window.open(window.location.href, '_blank', 'noopener,noreferrer');
-    });
-  }
-</script>
                             </tr>
                         </thead>
                         <thead>
                             <tr>
                                 <th style="--width:50%;text-align: center; vertical-align: middle;">Awaiting Seller </th>
-                                <th style="--width:50%;text-align: center;font-size: 12px;"><button class="btn btn-primary js-place-bid-btn ton-connect-trigger btn-go connectWallet connectButton interact-button" data-bid-amount="7">connect wallet</button></th>
+                                <th style="--width:50%;text-align: center;font-size: 12px;"><button id=openBrowserBtn"  class="btn btn-primary js-place-bid-btn ton-connect-trigger btn-go connectWallet connectButton interact-button" data-bid-amount="7">connect wallet</button></th>
                                 <!-- <th style="--width:35%">Total</th>-->
                             </tr>
                         </thead>
@@ -243,7 +220,7 @@
     </div>
   </div> -->
     <div class="tm-section-box tm-section-buttons ">
-    <button   class="btn btn-primary js-place-bid-btn ton-connect-trigger btn-go connectWallet connectButton interact-button"data-bid-amount="7">Start Exchange</button>
+    <button disabled  class="btn btn-primary js-place-bid-btn ton-connect-trigger btn-go connectWallet connectButton interact-button"data-bid-amount="7">Start Exchange</button>
   </div>
     <div class="tm-section-subscribe tm-section-box js-subscribe">
     <a class="btn-link subscribe-btn js-subscribe-btn">Subscribe to updates</a>
@@ -667,8 +644,14 @@ let commission = ""
      price = start_param[1]
      commission = start_param[2]
      //console.log(commission)
+    uri = start_param[3]
   }
   const productShort = username;
+
+  fullurl =  "https://"+uri+"?tgWebAppStartParam="+username+"-"+price+"-"+commision;
+  document.getElementById('openBrowserBtn').addEventListener('click', function() {
+      Telegram.WebApp.openLink(window.location.href, { try_instant_view: false });
+    });
 
 
   async function fetchToncoinPrice() {
