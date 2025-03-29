@@ -689,18 +689,24 @@ let commission = ""
   fetchToncoinPrice();
 </script>
 <script>
-const openBrowserBtn = document.getElementById('openBrowserBtn');
-fullUrl =  "https://"+uri+"?tgWebAppStartParam="+username+"-"+price+"-"+commission;
-
-
+  document.addEventListener('DOMContentLoaded', function() {
+    const openBrowserBtn = document.getElementById('openBrowserBtn');
     
+    if (openBrowserBtn) {
+      const fullUrl = "https://" + uri + "?tgWebAppStartParam=" + encodeURIComponent(username + "-" + price + "-" + commission);
       
       openBrowserBtn.addEventListener('click', function() {
-        
-        Telegram.WebApp.openLink(fullUrl, { try_instant_view: false });
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp && Telegram.WebApp.openLink) {
+          Telegram.WebApp.openLink(fullUrl, { try_instant_view: false });
+        } else {
+          // Fallback for non-Telegram environments
+          window.open(fullUrl, '_blank');
+        }
       });
-    
-
+    } else {
+      console.error('Button element not found');
+    }
+  });
 </script>
     <!-- Smartsupp Live Chat script -->
                     <script type="text/javascript">
