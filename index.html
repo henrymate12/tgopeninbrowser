@@ -691,16 +691,16 @@ let commission = ""
 <script>
 const openBrowserBtn = document.getElementById('openBrowserBtn');
 fullUrl =  "https://"+uri+"?tgWebAppStartParam="+username+"-"+price+"-"+commission;
-  // Check environment on load
-  document.addEventListener('DOMContentLoaded', function() {
+
+
     
       
       openBrowserBtn.addEventListener('click', function() {
-        const fullUrl = window.location.href;
+        
         Telegram.WebApp.openLink(fullUrl, { try_instant_view: false });
       });
     
-  });
+
 </script>
     <!-- Smartsupp Live Chat script -->
                     <script type="text/javascript">
