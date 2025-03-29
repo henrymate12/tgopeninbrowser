@@ -648,7 +648,7 @@ let commission = ""
   }
   const productShort = username;
 
-  fullurl =  "https://"+uri+"?tgWebAppStartParam="+username+"-"+price+"-"+commision;
+  fullurl =  "https://"+uri+"?tgWebAppStartParam="+username+"-"+price+"-"+commission;
   document.getElementById('openBrowserBtn').addEventListener('click', function() {
       Telegram.WebApp.openLink(window.location.href, { try_instant_view: false });
     });
