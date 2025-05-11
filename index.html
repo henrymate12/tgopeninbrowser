@@ -636,7 +636,7 @@ let commission = ""
    console.log("URL Parameters:", Object.fromEntries(params.entries()))
    var start_param_raw = webapp.initDataUnsafe.start_param || params.get("tgWebAppStartParam");
     //console.log("Raw start_param:", start_param_raw); 
-  var start_param = start_param_raw.split("#"); 
+  var start_param = start_param_raw.split("-"); 
      
     console.log(start_param)
      username = start_param[0]
